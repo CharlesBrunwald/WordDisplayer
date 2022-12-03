@@ -35,12 +35,14 @@ namespace WordDisplayer
 			this.ImageBox = new System.Windows.Forms.PictureBox();
 			this.ParseButton = new System.Windows.Forms.Button();
 			this.ParseSearchBox = new System.Windows.Forms.TextBox();
+			this.ThemeToggleButon = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.ImageBox)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// NextButton
 			// 
 			this.NextButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.NextButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
 			this.NextButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.NextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.NextButton.Location = new System.Drawing.Point(386, 569);
@@ -49,7 +51,7 @@ namespace WordDisplayer
 			this.NextButton.Size = new System.Drawing.Size(613, 62);
 			this.NextButton.TabIndex = 0;
 			this.NextButton.Text = "Next";
-			this.NextButton.UseVisualStyleBackColor = true;
+			this.NextButton.UseVisualStyleBackColor = false;
 			this.NextButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NextButton_MouseClick);
 			// 
 			// WordText
@@ -69,11 +71,12 @@ namespace WordDisplayer
 			this.ConfigurationFileList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.ConfigurationFileList.AutoScroll = true;
 			this.ConfigurationFileList.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.ConfigurationFileList.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.ConfigurationFileList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ConfigurationFileList.Location = new System.Drawing.Point(16, 260);
 			this.ConfigurationFileList.Margin = new System.Windows.Forms.Padding(4);
 			this.ConfigurationFileList.Name = "ConfigurationFileList";
-			this.ConfigurationFileList.Size = new System.Drawing.Size(276, 370);
+			this.ConfigurationFileList.Size = new System.Drawing.Size(313, 370);
 			this.ConfigurationFileList.TabIndex = 3;
 			// 
 			// ImageBox
@@ -103,6 +106,7 @@ namespace WordDisplayer
 			// ParseSearchBox
 			// 
 			this.ParseSearchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.ParseSearchBox.BackColor = System.Drawing.SystemColors.Window;
 			this.ParseSearchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ParseSearchBox.Location = new System.Drawing.Point(1091, 11);
 			this.ParseSearchBox.Name = "ParseSearchBox";
@@ -110,12 +114,25 @@ namespace WordDisplayer
 			this.ParseSearchBox.TabIndex = 6;
 			this.ParseSearchBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ParseSearchBox_KeyDown);
 			// 
+			// ThemeToggleButon
+			// 
+			this.ThemeToggleButon.AutoSize = true;
+			this.ThemeToggleButon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.ThemeToggleButon.Location = new System.Drawing.Point(16, 11);
+			this.ThemeToggleButon.Name = "ThemeToggleButon";
+			this.ThemeToggleButon.Size = new System.Drawing.Size(124, 24);
+			this.ThemeToggleButon.TabIndex = 7;
+			this.ThemeToggleButon.Text = "Light Theme";
+			this.ThemeToggleButon.UseVisualStyleBackColor = true;
+			this.ThemeToggleButon.CheckedChanged += new System.EventHandler(this.ThemeToggleButon_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.ClientSize = new System.Drawing.Size(1331, 665);
+			this.Controls.Add(this.ThemeToggleButon);
 			this.Controls.Add(this.ParseSearchBox);
 			this.Controls.Add(this.ParseButton);
 			this.Controls.Add(this.ImageBox);
@@ -139,6 +156,7 @@ namespace WordDisplayer
 		private System.Windows.Forms.PictureBox ImageBox;
 		private System.Windows.Forms.Button ParseButton;
 		private System.Windows.Forms.TextBox ParseSearchBox;
+		private System.Windows.Forms.CheckBox ThemeToggleButon;
 	}
 }
 
