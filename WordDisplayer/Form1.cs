@@ -13,9 +13,6 @@ namespace WordDisplayer
 
 	public partial class MainForm : Form
 	{
-		const string CONF_FOLDER_NAME = "Configuration";
-		const string IMAGE_FOLDER = "Images";
-
 		FileInfo[] _InfoInCurrentFile = { };
 
 		Random _RandomGenerator = new Random();
@@ -30,19 +27,19 @@ namespace WordDisplayer
 
 			ImageBox.SizeMode = PictureBoxSizeMode.StretchImage;
 
-			if(!Directory.Exists( IMAGE_FOLDER ) )
+			if(!Directory.Exists( ConfigurationUtils.IMAGE_FOLDER ) )
 			{
-				Directory.CreateDirectory(IMAGE_FOLDER);
+				Directory.CreateDirectory(ConfigurationUtils.IMAGE_FOLDER);
 			}
-			if ( !Directory.Exists( CONF_FOLDER_NAME ) )
+			if ( !Directory.Exists( ConfigurationUtils.CONF_FOLDER_NAME ) )
 			{
-				Directory.CreateDirectory(CONF_FOLDER_NAME);
-				MessageBox.Show( $"Directory: {CONF_FOLDER_NAME} did not exist. It has been created.", "Warning",
-					MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-				ChangeLabel( $"No files in directory: {CONF_FOLDER_NAME}" );
+				Directory.CreateDirectory(ConfigurationUtils.CONF_FOLDER_NAME);
+				MessageBox.Show( $"Directory: {ConfigurationUtils.CONF_FOLDER_NAME} did not exist. " +
+					"It has been created.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+				ChangeLabel( $"No files in directory: {ConfigurationUtils.CONF_FOLDER_NAME}" );
 				return;
 			}
-			string[] allFiles = Directory.GetFiles(CONF_FOLDER_NAME);
+			string[] allFiles = Directory.GetFiles(ConfigurationUtils.CONF_FOLDER_NAME);
 			for(int i = 0; i < allFiles.Length; i++)
 			{
 				Button button = new Button();
@@ -52,13 +49,14 @@ namespace WordDisplayer
 				ConfigurationFileList.Controls.Add(button);
 			}
 
-			ChangeLabel( allFiles.Length == 0 ? $"No files in directory: {CONF_FOLDER_NAME}" : "Pick a file to load.");
+			ChangeLabel( allFiles.Length == 0 ? 
+				$"No files in directory: {ConfigurationUtils.CONF_FOLDER_NAME}" : "Pick a file to load.");
 		}
 
 		private void FileButton_Click(object sender, EventArgs e)
 		{
 			Button button = (Button)sender;
-			_InfoInCurrentFile = ConfigurationUtils.ReadConfigurationFile( button.Text, IMAGE_FOLDER );
+			_InfoInCurrentFile = ConfigurationUtils.ReadConfigurationFile( button.Text );
 			_LastNumberPicked = -1;
 			ChangeLabel(_InfoInCurrentFile.Length == 0 ? $"No words in file{button.Text}..." : null );
 		}
@@ -112,7 +110,7 @@ namespace WordDisplayer
 
 		private void ParseButton_MouseClick(object sender, MouseEventArgs e)
 		{
-			string filePath = CONF_FOLDER_NAME + '/' +  ParseSearchBox.Text;
+			string filePath = ConfigurationUtils.CONF_FOLDER_NAME + '/' +  ParseSearchBox.Text;
 			if( ConfigurationUtils.CleanFile(filePath) )
 			{
 				MessageBox.Show($"{filePath} has been succefully parsed.", "Success" );
@@ -130,18 +128,21 @@ namespace WordDisplayer
 
 	class ConfigurationUtils
 	{
+		public const string CONF_FOLDER_NAME = "Configuration";
+		public const string IMAGE_FOLDER = "Images";
 		public const char COMMENT = '#';
 		public const char WORD_IMAGE_SEPERATOR = ',';
 		public const string DONT_PARSE = "#DONT_PARSE";
 
-		public static FileInfo[] ReadConfigurationFile( string FilePath, string ImageFolder )
+		public static FileInfo[] ReadConfigurationFile( string FilePath )
 		{
+			string imageFolder = IMAGE_FOLDER;
 			List<FileInfo> allInfo = new List<FileInfo>();
 			if (File.Exists(FilePath))
 			{
-				if(ImageFolder.LastIndexOf('/') == -1 && ImageFolder.LastIndexOf('\\') == -1 )
+				if(imageFolder.LastIndexOf('/') == -1 && imageFolder.LastIndexOf('\\') == -1 )
 				{
-					ImageFolder += '/';
+					imageFolder += '/';
 				}
 
 				foreach (string line in File.ReadLines(FilePath))
@@ -154,7 +155,7 @@ namespace WordDisplayer
 						if( indexOfComma != -1 ) // Do we have an image?
 						{
 							fileInfo.word = line.Substring(0, indexOfComma);
-							fileInfo.imagePath = ImageFolder + line.Substring(indexOfComma + 1);
+							fileInfo.imagePath = imageFolder + line.Substring(indexOfComma + 1);
 							fileInfo.imagePath = fileInfo.imagePath.Trim();
 							fileInfo.imagePath = fileInfo.imagePath.Replace( " ", "" );
 						}

@@ -9,7 +9,7 @@ All images must be added in the "Images" folder in the root of the .exe;
 **You can also parse your file with the red button on te top left of the screen.
 This will take every word in your file and put each one on its own line;
 
-***CAUTION: if associated an image with a world using ',', parsing the file will undo this add the image on a new line.***
+***CAUTION: if you associated an image with a word using ',', parsing the file will undo this add the image on a new line.***
 *** Adding the #DONT_PARSE keyword on the first line of a file blocks it from being parsed. ***
 
 ***Example of file***
